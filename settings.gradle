@@ -1,0 +1,4 @@
+include ':app'
+
+include ':liteitemview'
+project(':liteitemview').projectDir = new File('module/liteitemview')
