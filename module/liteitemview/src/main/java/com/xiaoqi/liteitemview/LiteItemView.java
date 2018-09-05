@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class LiteItemView extends ConstraintLayout {
 
+    private ConstraintLayout mCl; // 根约束布局
     private ImageView mIvLeft; // 左侧图标
     private ImageView mIvRight; // 右侧图标
     private TextView mTvLeft; // 左侧文字
@@ -36,18 +37,18 @@ public class LiteItemView extends ConstraintLayout {
     }
 
     private void initView(Context context) {
-        View view = View.inflate(context, R.layout.layout, this);
-        ConstraintLayout mCl = view.findViewById(R.id.cl);
+        final View view = View.inflate(context, R.layout.layout, this);
+        mCl = view.findViewById(R.id.cl);
         mIvLeft = view.findViewById(R.id.iv_left);
         mIvRight = view.findViewById(R.id.iv_right);
         mTvLeft = view.findViewById(R.id.tv_left);
         mTvRight = view.findViewById(R.id.tv_right);
         mV = view.findViewById(R.id.v);
-        mCl.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnLiteItemViewClick != null) {
-                    mOnLiteItemViewClick.onClick();
+                    mOnLiteItemViewClick.onClick(view);
                 }
             }
         });
@@ -149,15 +150,30 @@ public class LiteItemView extends ConstraintLayout {
         mTvRight.setVisibility(visible ? VISIBLE : INVISIBLE);
     }
 
+    public void setHeight(int sizeInDp) {
+        ConstraintLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, (int) dp2px(sizeInDp));
+        mCl.setLayoutParams(params);
+    }
+
     public void setSeparatorLineColor(int color) {
         mV.setBackgroundColor(color);
     }
 
-    public void setOnMineItemViewClick(OnLiteItemViewClick click) {
+    public void setOnLiteItemViewClick(OnLiteItemViewClick click) {
         mOnLiteItemViewClick = click;
     }
 
-    public interface OnLiteItemViewClick {
-        void onClick();
+    public interface OnLiteItemViewClick extends View.OnClickListener {
+
+    }
+
+    private float px2dp(int sizeIdPx) {
+        float scale = this.getResources().getDisplayMetrics().density;
+        return sizeIdPx / scale + 0.5f;
+    }
+
+    private float dp2px(int sizeInDp) {
+        float scale = this.getResources().getDisplayMetrics().density;
+        return sizeInDp * scale + 0.5f;
     }
 }
