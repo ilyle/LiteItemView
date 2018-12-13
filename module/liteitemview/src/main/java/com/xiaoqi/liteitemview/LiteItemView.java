@@ -79,6 +79,8 @@ public class LiteItemView extends ConstraintLayout {
                 mTvLeft.setVisibility(array.getBoolean(attr, true) ? VISIBLE : INVISIBLE); // 默认显示左侧文字
             } else if (attr == R.styleable.LiteItemView_isShowRightText) {
                 mTvRight.setVisibility(array.getBoolean(attr, false) ? VISIBLE : INVISIBLE); // 默认不显示右侧文字
+            } else if (attr == R.styleable.LiteItemView_isShowLeftIcon) {
+                mIvLeft.setVisibility(array.getBoolean(attr, true) ? VISIBLE : GONE); // 默认显示左侧图标
             } else if (attr == R.styleable.LiteItemView_rightStyle) {
                 int rightStyle = array.getInt(attr, 0);
                 switch (rightStyle) {
@@ -86,7 +88,7 @@ public class LiteItemView extends ConstraintLayout {
                         mIvRight.setVisibility(VISIBLE);
                         break;
                     case 1:
-                        mIvRight.setVisibility(INVISIBLE);
+                        mIvRight.setVisibility(GONE);
                         break;
                 }
             }
@@ -100,6 +102,10 @@ public class LiteItemView extends ConstraintLayout {
 
     public void setLeftIcon(int resId) {
         mIvLeft.setImageResource(resId);
+    }
+
+    public void setLeftIconVisible(boolean visible) {
+        mIvLeft.setVisibility(visible ? VISIBLE : GONE);
     }
 
     public void setRightIcon(Drawable drawable) {

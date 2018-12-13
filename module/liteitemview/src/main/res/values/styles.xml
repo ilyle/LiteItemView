@@ -11,6 +11,7 @@
         <attr name="rightTextColor" format="color" />
         <attr name="isShowLeftText" format="boolean" />
         <attr name="isShowRightText" format="boolean" />
+        <attr name="isShowLeftIcon" format="boolean" />
         <attr name="isShowUnderLine" format="boolean" />
         <attr name="rightStyle" format="enum">
             <enum name="iconShow" value="0" />
