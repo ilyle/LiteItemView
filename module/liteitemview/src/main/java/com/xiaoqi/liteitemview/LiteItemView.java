@@ -59,8 +59,8 @@ public class LiteItemView extends ConstraintLayout {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnLiteItemViewClickListener != null && v.getId() == R.id.cl) {
-                    mOnLiteItemViewClickListener.onClick();
+                if (mOnLiteItemViewClickListener != null) {
+                    mOnLiteItemViewClickListener.onClick(view);
                 }
             }
         });
@@ -68,8 +68,8 @@ public class LiteItemView extends ConstraintLayout {
         mSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mOnLiteItemCheckChangeListener != null && buttonView.getId() == R.id.sw) {
-                    mOnLiteItemCheckChangeListener.onCheckedChanged(isChecked);
+                if (mOnLiteItemCheckChangeListener != null ) {
+                    mOnLiteItemCheckChangeListener.onCheckedChanged(buttonView, isChecked);
                 }
             }
         });
@@ -198,12 +198,10 @@ public class LiteItemView extends ConstraintLayout {
         mOnLiteItemCheckChangeListener = listener;
     }
 
-    public interface OnLiteItemViewClickListener  {
-        void onClick();
+    public interface OnLiteItemViewClickListener extends OnClickListener {
     }
 
-    public interface OnLiteItemCheckChangeListener {
-        void onCheckedChanged(boolean checked);
+    public interface OnLiteItemCheckChangeListener extends CompoundButton.OnCheckedChangeListener {
     }
 
     private float px2dp(int sizeIdPx) {
