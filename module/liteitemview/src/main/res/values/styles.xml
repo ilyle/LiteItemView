@@ -16,6 +16,7 @@
         <attr name="rightStyle" format="enum">
             <enum name="iconShow" value="0" />
             <enum name="iconHide" value="1" />
+            <enum name="switchButton" value="2"/>
         </attr>
     </declare-styleable>
 </resources>

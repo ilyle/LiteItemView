@@ -5,10 +5,13 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Group;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class LiteItemView extends ConstraintLayout {
@@ -18,9 +21,14 @@ public class LiteItemView extends ConstraintLayout {
     private ImageView mIvRight; // 右侧图标
     private TextView mTvLeft; // 左侧文字
     private TextView mTvRight; // 右侧文字
+    private Switch mSw; // 右侧选择按钮
     private View mV; // 分割线
 
-    private OnLiteItemViewClick mOnLiteItemViewClick; // 点击事件
+    private Group mGpLeft; // 左侧控件群组
+    private Group mGpRight; // 右侧控件群组
+
+    private OnLiteItemViewClickListener mOnLiteItemViewClickListener; // 点击监听
+    private OnLiteItemCheckChangeListener mOnLiteItemCheckChangeListener; // 选择按钮切换监听
 
     public LiteItemView(Context context) {
         this(context, null);
@@ -43,12 +51,25 @@ public class LiteItemView extends ConstraintLayout {
         mIvRight = view.findViewById(R.id.iv_right);
         mTvLeft = view.findViewById(R.id.tv_left);
         mTvRight = view.findViewById(R.id.tv_right);
+        mSw = view.findViewById(R.id.sw);
+        mGpLeft = view.findViewById(R.id.gp_left);
+        mGpRight = view.findViewById(R.id.gp_right);
+
         mV = view.findViewById(R.id.v);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnLiteItemViewClick != null) {
-                    mOnLiteItemViewClick.onClick(view);
+                if (mOnLiteItemViewClickListener != null && v.getId() == R.id.cl) {
+                    mOnLiteItemViewClickListener.onClick();
+                }
+            }
+        });
+
+        mSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (mOnLiteItemCheckChangeListener != null && buttonView.getId() == R.id.sw) {
+                    mOnLiteItemCheckChangeListener.onCheckedChanged(isChecked);
                 }
             }
         });
@@ -89,6 +110,10 @@ public class LiteItemView extends ConstraintLayout {
                         break;
                     case 1:
                         mIvRight.setVisibility(GONE);
+                        break;
+                    case 2:
+                        mSw.setVisibility(VISIBLE);
+                        mGpRight.setVisibility(GONE);
                         break;
                 }
             }
@@ -165,12 +190,20 @@ public class LiteItemView extends ConstraintLayout {
         mV.setBackgroundColor(color);
     }
 
-    public void setOnLiteItemViewClick(OnLiteItemViewClick click) {
-        mOnLiteItemViewClick = click;
+    public void setOnLiteItemViewClick(OnLiteItemViewClickListener listener) {
+        mOnLiteItemViewClickListener = listener;
     }
 
-    public interface OnLiteItemViewClick extends View.OnClickListener {
+    public void setOnLiteItemCheckChangeListener(OnLiteItemCheckChangeListener listener) {
+        mOnLiteItemCheckChangeListener = listener;
+    }
 
+    public interface OnLiteItemViewClickListener  {
+        void onClick();
+    }
+
+    public interface OnLiteItemCheckChangeListener {
+        void onCheckedChanged(boolean checked);
     }
 
     private float px2dp(int sizeIdPx) {
