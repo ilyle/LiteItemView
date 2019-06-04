@@ -177,6 +177,11 @@ public class LiteItemView extends ConstraintLayout {
         }
     }
 
+    public void setChecked(boolean checked) {
+        if (mSw.getVisibility() == VISIBLE)
+            mSw.setChecked(checked);
+    }
+
     public void setRightTextSize(float sizeInSp) {
         mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeInSp);
     }
