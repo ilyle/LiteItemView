@@ -59,8 +59,8 @@ public class LiteItemView extends ConstraintLayout {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnLiteItemViewClickListener != null) {
-                    mOnLiteItemViewClickListener.onClick(view);
+                if (mOnLiteItemViewClickListener != null && v.getId() == R.id.cl) {
+                    mOnLiteItemViewClickListener.onClick();
                 }
             }
         });
@@ -68,8 +68,8 @@ public class LiteItemView extends ConstraintLayout {
         mSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mOnLiteItemCheckChangeListener != null ) {
-                    mOnLiteItemCheckChangeListener.onCheckedChanged(buttonView, isChecked);
+                if (mOnLiteItemCheckChangeListener != null && buttonView.getId() == R.id.sw) {
+                    mOnLiteItemCheckChangeListener.onCheckedChanged(isChecked);
                 }
             }
         });
@@ -169,6 +169,14 @@ public class LiteItemView extends ConstraintLayout {
         return mTvRight.getText().toString().trim();
     }
 
+    public boolean isChecked() {
+        if (mSw.getVisibility() == VISIBLE) {
+            return mSw.isChecked();
+        } else {
+            return false;
+        }
+    }
+
     public void setRightTextSize(float sizeInSp) {
         mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_SP, sizeInSp);
     }
@@ -198,10 +206,12 @@ public class LiteItemView extends ConstraintLayout {
         mOnLiteItemCheckChangeListener = listener;
     }
 
-    public interface OnLiteItemViewClickListener extends OnClickListener {
+    public interface OnLiteItemViewClickListener {
+        void onClick();
     }
 
-    public interface OnLiteItemCheckChangeListener extends CompoundButton.OnCheckedChangeListener {
+    public interface OnLiteItemCheckChangeListener {
+        void onCheckedChanged(boolean checked);
     }
 
     private float px2dp(int sizeIdPx) {

@@ -23,14 +23,14 @@ public class MainActivity extends AppCompatActivity {
         mLiv = findViewById(R.id.liv);
         mLiv.setOnLiteItemViewClick(new LiteItemView.OnLiteItemViewClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick() {
                 Toast.makeText(mContext, mLiv.getLeftText(), Toast.LENGTH_SHORT).show();
             }
         });
         mLiv.setOnLiteItemCheckChangeListener(new LiteItemView.OnLiteItemCheckChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton button, boolean checked) {
-                Toast.makeText(mContext, String.valueOf(checked), Toast.LENGTH_SHORT).show();
+            public void onCheckedChanged(boolean checked) {
+                Toast.makeText(mContext, mLiv.isChecked() + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
