@@ -8,6 +8,8 @@
         android:id="@+id/liv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:isShowLeftIcon="false"
-        app:rightStyle="switchButton"/>
+        app:rightStyle="switchButton"
+        app:rightText="@string/app_name"
+        app:isShowRightText="true"
+        app:leftText="坐坐坐坐"/>
 </LinearLayout>

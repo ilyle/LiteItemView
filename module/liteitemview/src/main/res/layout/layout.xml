@@ -26,6 +26,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_right"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_right"
         app:layout_constraintTop_toTopOf="parent"
@@ -60,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,15 +76,4 @@
         android:background="#EBEBEB"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <android.support.constraint.Group
-        android:id="@+id/gp_left"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:constraint_referenced_ids="iv_left, tv_left"/>
-
-    <android.support.constraint.Group
-        android:id="@+id/gp_right"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:constraint_referenced_ids="iv_right, tv_right" />
 </android.support.constraint.ConstraintLayout>

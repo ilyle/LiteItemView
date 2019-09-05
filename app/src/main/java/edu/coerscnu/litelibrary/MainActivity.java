@@ -21,16 +21,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
         mLiv = findViewById(R.id.liv);
+        mLiv.setChecked(true);
         mLiv.setOnLiteItemViewClick(new LiteItemView.OnLiteItemViewClickListener() {
             @Override
             public void onClick() {
-                Toast.makeText(mContext, mLiv.getLeftText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "fafa", Toast.LENGTH_SHORT).show();
             }
         });
         mLiv.setOnLiteItemCheckChangeListener(new LiteItemView.OnLiteItemCheckChangeListener() {
             @Override
             public void onCheckedChanged(boolean checked) {
-                Toast.makeText(mContext, mLiv.isChecked() + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "dafa", Toast.LENGTH_SHORT).show();
             }
         });
     }

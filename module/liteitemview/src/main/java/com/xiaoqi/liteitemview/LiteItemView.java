@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.Group;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -23,9 +22,6 @@ public class LiteItemView extends ConstraintLayout {
     private TextView mTvRight; // 右侧文字
     private Switch mSw; // 右侧选择按钮
     private View mV; // 分割线
-
-    private Group mGpLeft; // 左侧控件群组
-    private Group mGpRight; // 右侧控件群组
 
     private OnLiteItemViewClickListener mOnLiteItemViewClickListener; // 点击监听
     private OnLiteItemCheckChangeListener mOnLiteItemCheckChangeListener; // 选择按钮切换监听
@@ -52,14 +48,12 @@ public class LiteItemView extends ConstraintLayout {
         mTvLeft = view.findViewById(R.id.tv_left);
         mTvRight = view.findViewById(R.id.tv_right);
         mSw = view.findViewById(R.id.sw);
-        mGpLeft = view.findViewById(R.id.gp_left);
-        mGpRight = view.findViewById(R.id.gp_right);
 
         mV = view.findViewById(R.id.v);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnLiteItemViewClickListener != null && v.getId() == R.id.cl) {
+                if (mOnLiteItemViewClickListener != null) {
                     mOnLiteItemViewClickListener.onClick();
                 }
             }
@@ -68,7 +62,7 @@ public class LiteItemView extends ConstraintLayout {
         mSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mOnLiteItemCheckChangeListener != null && buttonView.getId() == R.id.sw) {
+                if (mOnLiteItemCheckChangeListener != null) {
                     mOnLiteItemCheckChangeListener.onCheckedChanged(isChecked);
                 }
             }
@@ -106,14 +100,17 @@ public class LiteItemView extends ConstraintLayout {
                 int rightStyle = array.getInt(attr, 0);
                 switch (rightStyle) {
                     case 0:
+                        mSw.setVisibility(GONE);
                         mIvRight.setVisibility(VISIBLE);
                         break;
                     case 1:
+                        mSw.setVisibility(GONE);
                         mIvRight.setVisibility(GONE);
                         break;
                     case 2:
                         mSw.setVisibility(VISIBLE);
-                        mGpRight.setVisibility(GONE);
+                        mIvRight.setVisibility(GONE);
+                        mTvRight.setVisibility(GONE);
                         break;
                 }
             }
