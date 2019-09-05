@@ -81,13 +81,13 @@ public class LiteItemView extends ConstraintLayout {
             } else if (attr == R.styleable.LiteItemView_leftText) {
                 mTvLeft.setText(array.getString(attr));
             } else if (attr == R.styleable.LiteItemView_leftTextSize) {
-                mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_SP, (int) array.getDimension(attr, 16));
+                mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_SP, (int) px2sp((int) array.getDimension(attr, 14)));
             } else if (attr == R.styleable.LiteItemView_leftTextColor) {
                 mTvLeft.setTextColor(array.getColor(attr, Color.GRAY));
             } else if (attr == R.styleable.LiteItemView_rightText) {
                 mTvRight.setText(array.getString(attr));
             } else if (attr == R.styleable.LiteItemView_rightTextSize) {
-                mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_SP, (int) array.getDimension(attr, 12));
+                mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_SP, (int) px2sp((int) array.getDimension(attr, 12)));
             } else if (attr == R.styleable.LiteItemView_rightTextColor) {
                 mTvRight.setTextColor(array.getColor(attr, Color.GRAY));
             } else if (attr == R.styleable.LiteItemView_isShowLeftText) {
@@ -216,13 +216,23 @@ public class LiteItemView extends ConstraintLayout {
         void onCheckedChanged(boolean checked);
     }
 
-    private float px2dp(int sizeIdPx) {
+    private float px2dp(int sizeInPx) {
         float scale = this.getResources().getDisplayMetrics().density;
-        return sizeIdPx / scale + 0.5f;
+        return sizeInPx / scale + 0.5f;
     }
 
     private float dp2px(int sizeInDp) {
         float scale = this.getResources().getDisplayMetrics().density;
         return sizeInDp * scale + 0.5f;
+    }
+
+    private float px2sp(int sizeInPx) {
+        float scale = this.getResources().getDisplayMetrics().density;
+        return sizeInPx / scale + 0.5f;
+    }
+
+    private float sp2px(int sizeInSp) {
+        float scale = this.getResources().getDisplayMetrics().density;
+        return sizeInSp * scale + 0.5f;
     }
 }
